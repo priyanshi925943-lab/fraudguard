@@ -1,0 +1,340 @@
+/* ============================================================
+   style.css — FraudGuard Dark Fintech Theme
+   ============================================================ */
+
+/* ============================================================
+   1. CSS VARIABLES — All colors defined in one place
+   ============================================================ */
+:root {
+    --bg-primary:     #0a0f1e;    /* main dark background */
+    --bg-card:        #1a2235;    /* card background */
+    --bg-card-hover:  #1f2937;    /* card hover state */
+    --accent-blue:    #2563eb;    /* razorpay blue */
+    --success:        #10b981;    /* green for low risk */
+    --warning:        #f59e0b;    /* yellow for medium risk */
+    --danger:         #ef4444;    /* red for high risk */
+    --text-primary:   #f9fafb;    /* main white text */
+    --text-muted:     #d1d5db;
+    --border-color:   #1f2937;    /* subtle border */
+    --border-radius:  12px;       /* rounded corners */
+    --shadow:         0 4px 24px rgba(0, 0, 0, 0.4);  /* card shadow */
+}
+
+/* ============================================================
+   2. BASE STYLES — Applied to whole page
+   ============================================================ */
+* {
+    margin:     0;
+    padding:    0;
+    box-sizing: border-box;       /* include padding in width */
+}
+
+body {
+    background-color: var(--bg-primary);   /* dark background */
+    font-family:      'Inter', sans-serif; /* clean modern font */
+    color:            var(--text-primary); /* white text */
+    min-height:       100vh;               /* full screen height */
+}
+
+/* ============================================================
+   3. NAVBAR
+   ============================================================ */
+.navbar {
+    background-color: var(--bg-card);           /* dark card bg */
+    border-bottom:    1px solid var(--border-color); /* subtle line */
+    box-shadow:       var(--shadow);            /* drop shadow */
+}
+
+.navbar .nav-link:hover {
+    color: var(--accent-blue) !important;       /* blue on hover */
+}
+
+.active-link {
+    color:       var(--accent-blue) !important; /* blue for active page */
+    font-weight: 600;
+}
+
+/* ============================================================
+   4. HERO SECTION — Home page background
+   ============================================================ */
+.hero-section {
+    background: linear-gradient(
+        135deg,
+        #0a0f1e 0%,
+        #0f172a 50%,
+        #0a0f1e 100%
+    );
+    min-height: calc(100vh - 70px);    /* full height minus navbar */
+    padding-top: 60px;
+}
+
+/* ============================================================
+   5. FEATURE CARDS — Three cards on home page
+   ============================================================ */
+.feature-card {
+    background:    var(--bg-card);          /* dark background */
+    border:        1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow:    var(--shadow);
+    transition:    transform 0.2s ease;     /* smooth hover animation */
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);            /* lift up on hover */
+    border-color: var(--accent-blue);       /* blue border on hover */
+}
+
+.feature-icon {
+    font-size: 2.5rem;                      /* large emoji icon */
+}
+
+/* ============================================================
+   6. UPLOAD CARD — File upload box on home page
+   ============================================================ */
+.upload-card {
+    background:    var(--bg-card);
+    border:        1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow:    var(--shadow);
+}
+
+.dropzone {
+    border:        2px dashed var(--accent-blue); /* dashed blue border */
+    border-radius: var(--border-radius);
+    background:    rgba(37, 99, 235, 0.05);       /* very subtle blue tint */
+    transition:    background 0.2s ease;
+}
+
+.dropzone:hover {
+    background: rgba(37, 99, 235, 0.1);           /* slightly more blue on hover */
+}
+
+/* Style the file input */
+.dropzone input[type="file"] {
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+/* ============================================================
+   7. STAT CARDS — Summary numbers on results page
+   ============================================================ */
+.stat-card {
+    background:    var(--bg-card);
+    border:        1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow:    var(--shadow);
+    transition:    transform 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Glow effects for risk cards */
+.high-glow {
+    box-shadow: 0 4px 24px rgba(239, 68, 68, 0.15);   /* red glow */
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.medium-glow {
+    box-shadow: 0 4px 24px rgba(245, 158, 11, 0.15);  /* yellow glow */
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.low-glow {
+    box-shadow: 0 4px 24px rgba(16, 185, 129, 0.15);  /* green glow */
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.stat-icon {
+    font-size: 1.8rem;
+}
+
+/* ============================================================
+   8. RESULTS CARD — Table and chart container
+   ============================================================ */
+.results-card {
+    background:    var(--bg-card);
+    border:        1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow:    var(--shadow);
+}
+
+/* ============================================================
+   9. TABLE STYLES
+   ============================================================ */
+.table-dark {
+    background-color: transparent;         /* use card background */
+}
+
+.table-dark thead th {
+    color:         var(--text-muted);       /* grey header text */
+    border-bottom: 1px solid var(--border-color);
+    font-weight:   600;
+    font-size:     0.85rem;
+    text-transform: uppercase;             /* UPPERCASE headers */
+    letter-spacing: 0.05em;
+}
+
+.table-dark tbody tr:hover {
+    background-color: var(--bg-card-hover); /* highlight on hover */
+}
+
+/* Badge styles */
+.badge {
+    font-size:     0.8rem;
+    border-radius: 20px;                   /* pill shape */
+}
+
+/* ============================================================
+   10. SEARCH INPUT
+   ============================================================ */
+.form-control:focus {
+    border-color: var(--accent-blue);      /* blue border on focus */
+    box-shadow:   0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+/* ============================================================
+   11. BUTTONS
+   ============================================================ */
+.btn-primary {
+    background-color: var(--accent-blue);
+    border-color:     var(--accent-blue);
+    border-radius:    8px;
+    font-weight:      600;
+    transition:       all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;            /* darker blue on hover */
+    border-color:     #1d4ed8;
+    transform:        translateY(-1px);   /* slight lift */
+}
+
+.btn-outline-primary {
+    color:        var(--accent-blue);
+    border-color: var(--accent-blue);
+    border-radius: 8px;
+    font-weight:  600;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--accent-blue);
+    color: white;
+}
+
+.btn-outline-secondary {
+    color:        var(--text-muted);
+    border-color: var(--border-color);
+    border-radius: 6px;
+}
+
+/* ============================================================
+   12. CONFUSION MATRIX COLORS
+   ============================================================ */
+.cm-green {
+    background-color: rgba(16, 185, 129, 0.15);  /* green tint */
+    color:            var(--success);
+    border-radius:    8px;
+    padding:          12px;
+}
+
+.cm-red {
+    background-color: rgba(239, 68, 68, 0.15);   /* red tint */
+    color:            var(--danger);
+    border-radius:    8px;
+    padding:          12px;
+}
+
+/* ============================================================
+   13. PLAIN ENGLISH SUMMARY BOX — Metrics page
+   ============================================================ */
+.summary-box {
+    background:    var(--bg-card);
+    border:        1px solid var(--accent-blue);  /* blue border */
+    border-radius: var(--border-radius);
+    box-shadow:    0 4px 24px rgba(37, 99, 235, 0.1);
+}
+
+/* ============================================================
+   14. PROGRESS BARS
+   ============================================================ */
+.progress {
+    background-color: var(--bg-card-hover);
+    border-radius:    10px;
+}
+
+/* ============================================================
+   15. FOOTER
+   ============================================================ */
+footer {
+    background-color: var(--bg-card);
+    border-top:       1px solid var(--border-color);
+    color:            var(--text-muted);
+    margin-top:       60px;
+}
+
+/* ============================================================
+   16. SCROLLBAR — Custom dark scrollbar
+   ============================================================ */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background:    var(--accent-blue);
+    border-radius: 10px;
+}
+
+/* ============================================================
+   17. RESPONSIVE — Mobile adjustments
+   ============================================================ */
+@media (max-width: 768px) {
+    .hero-section {
+        padding-top: 30px;
+    }
+
+    .display-4 {
+        font-size: 2rem;              /* smaller headline on mobile */
+    }
+
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+}
+/* Fix muted text visibility */
+.text-muted {
+    color: #d1d5db !important;
+}
+
+p {
+    color: #d1d5db;
+}
+
+ol li, ul li {
+    color: #d1d5db;
+}
+
+.table-dark td {
+    color: #f1f5f9 !important;
+}
+
+.table-dark th {
+    color: #cbd5e1 !important;
+}
+
+small {
+    color: #cbd5e1 !important;
+}
+
+.feature-card p {
+    color: #d1d5db !important;
+}
+
+.stat-card p {
+    color: #d1d5db !important;
+}

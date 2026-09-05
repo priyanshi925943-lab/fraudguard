@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraudGuard — About</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark px-4 py-3">
+    <a class="navbar-brand fw-bold fs-4" href="/">🛡️ FraudGuard</a>
+    <div class="d-flex gap-3">
+        <a href="/"        class="nav-link text-white">Home</a>
+        <a href="/results" class="nav-link text-white">Results</a>
+        <a href="/metrics" class="nav-link text-white">Metrics</a>
+        <a href="/about"   class="nav-link text-white active-link">About</a>
+    </div>
+</nav>
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <div class="badge bg-primary px-3 py-2 mb-3 rounded-pill">
+            🏆 Razorpay AI Buildathon 2026 — Track 02
+        </div>
+        <h2 class="text-white fw-bold">About FraudGuard</h2>
+        <p class="text-muted">AI-Powered Chargeback and Fraud Risk Scorer</p>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="results-card p-4 mb-4">
+        <h5 class="text-white fw-bold mb-3">🎯 Problem We Solve</h5>
+        <p class="text-muted">
+            Merchants lose millions every year to fraudulent transactions and chargebacks.
+            Traditional rule-based systems miss sophisticated fraud patterns and generate
+            too many false alarms. FraudGuard uses Machine Learning to score every
+            transaction in real time — catching fraud before it causes damage.
+        </p>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="results-card p-4 mb-4">
+        <h5 class="text-white fw-bold mb-4">⚙️ How It Works</h5>
+        <div class="row g-3 text-center">
+            <div class="col-md-4">
+                <div class="step-circle mb-3">1</div>
+                <h6 class="text-white">Upload CSV</h6>
+                <p class="text-muted small">Merchant uploads transaction data as a CSV file</p>
+            </div>
+            <div class="col-md-4">
+                <div class="step-circle mb-3">2</div>
+                <h6 class="text-white">AI Scores Each Row</h6>
+                <p class="text-muted small">Random Forest model assigns fraud probability to each transaction</p>
+            </div>
+            <div class="col-md-4">
+                <div class="step-circle mb-3">3</div>
+                <h6 class="text-white">Risk Dashboard</h6>
+                <p class="text-muted small">Results shown as High, Medium, Low risk with full metrics</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ML PIPELINE -->
+    <div class="results-card p-4 mb-4">
+        <h5 class="text-white fw-bold mb-3">🧠 ML Pipeline</h5>
+        <ol class="text-muted">
+            <li class="mb-2">Load Credit Card Fraud dataset (284,807 transactions)</li>
+            <li class="mb-2">Drop Time column, scale Amount using StandardScaler</li>
+            <li class="mb-2">Handle class imbalance using SMOTE oversampling</li>
+            <li class="mb-2">Train Random Forest Classifier (100 trees, balanced weights)</li>
+            <li class="mb-2">Evaluate on stratified 80/20 test split</li>
+            <li class="mb-2">Save model and scaler using Joblib</li>
+            <li class="mb-0">Score new transactions via Flask web interface</li>
+        </ol>
+    </div>
+
+    <!-- TECH STACK -->
+    <div class="results-card p-4 mb-4">
+        <h5 class="text-white fw-bold mb-3">🛠️ Tech Stack</h5>
+        <div class="d-flex flex-wrap gap-2">
+            <span class="badge bg-primary px-3 py-2">Python</span>
+            <span class="badge bg-primary px-3 py-2">Flask</span>
+            <span class="badge bg-primary px-3 py-2">Scikit-learn</span>
+            <span class="badge bg-primary px-3 py-2">Pandas</span>
+            <span class="badge bg-primary px-3 py-2">NumPy</span>
+            <span class="badge bg-primary px-3 py-2">SMOTE</span>
+            <span class="badge bg-primary px-3 py-2">Random Forest</span>
+            <span class="badge bg-primary px-3 py-2">Joblib</span>
+            <span class="badge bg-primary px-3 py-2">Bootstrap 5</span>
+            <span class="badge bg-primary px-3 py-2">Chart.js</span>
+        </div>
+    </div>
+
+    <!-- METRICS -->
+    <div class="summary-box p-4">
+        <h5 class="text-white fw-bold mb-3">📈 Model Performance</h5>
+        <div class="row text-center g-3">
+            <div class="col-md-3">
+                <h3 class="text-primary fw-bold">87.1%</h3>
+                <p class="text-muted small">Precision</p>
+            </div>
+            <div class="col-md-3">
+                <h3 class="text-success fw-bold">82.7%</h3>
+                <p class="text-muted small">Recall</p>
+            </div>
+            <div class="col-md-3">
+                <h3 class="text-warning fw-bold">84.8%</h3>
+                <p class="text-muted small">F1-Score</p>
+            </div>
+            <div class="col-md-3">
+                <h3 class="text-danger fw-bold">0.02%</h3>
+                <p class="text-muted small">False Positive Rate</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="text-center py-4 text-muted small">
+    FraudGuard &nbsp;·&nbsp; Razorpay AI Buildathon 2026 &nbsp;·&nbsp; Track 02
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

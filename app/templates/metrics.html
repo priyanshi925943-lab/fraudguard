@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraudGuard — Model Metrics</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Our custom CSS -->
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ================================================== -->
+    <!-- NAVBAR -->
+    <!-- ================================================== -->
+    <nav class="navbar navbar-dark px-4 py-3">
+        <a class="navbar-brand fw-bold fs-4" href="/">
+            🛡️ FraudGuard
+        </a>
+        <div class="d-flex gap-3">
+            <a href="/"        class="nav-link text-white">Home</a>
+            <a href="/results" class="nav-link text-white">Results</a>
+            <a href="/metrics" class="nav-link text-white active-link">Metrics</a>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+
+        <!-- Page Title -->
+        <h2 class="text-white fw-bold mb-4">
+            <i class="bi bi-graph-up me-2"></i>
+            Model Evaluation Report
+        </h2>
+
+        <!-- ============================================ -->
+        <!-- TOP ROW — 4 METRIC CARDS -->
+        <!-- ============================================ -->
+        <div class="row g-4 mb-5">
+
+            <!-- Precision -->
+            <div class="col-md-3">
+                <div class="stat-card p-4 text-center">
+                    <p class="text-muted mb-1">Precision</p>
+                    <h2 class="text-white fw-bold">{{ metrics.precision }}%</h2>
+                    <!-- Progress bar -->
+                    <div class="progress mt-2" style="height: 6px;">
+                        <div class="progress-bar bg-primary"
+                             style="width: {{ metrics.precision }}%">
+                        </div>
+                    </div>
+                    <p class="text-muted small mt-2">
+                        When it flags fraud, it is right {{ metrics.precision }}% of the time
+                    </p>
+                </div>
+            </div>
+
+            <!-- Recall -->
+            <div class="col-md-3">
+                <div class="stat-card p-4 text-center">
+                    <p class="text-muted mb-1">Recall</p>
+                    <h2 class="text-white fw-bold">{{ metrics.recall }}%</h2>
+                    <div class="progress mt-2" style="height: 6px;">
+                        <div class="progress-bar bg-success"
+                             style="width: {{ metrics.recall }}%">
+                        </div>
+                    </div>
+                    <p class="text-muted small mt-2">
+                        It catches {{ metrics.recall }}% of all actual fraud cases
+                    </p>
+                </div>
+            </div>
+
+            <!-- F1 Score -->
+            <div class="col-md-3">
+                <div class="stat-card p-4 text-center">
+                    <p class="text-muted mb-1">F1-Score</p>
+                    <h2 class="text-white fw-bold">{{ metrics.f1 }}%</h2>
+                    <div class="progress mt-2" style="height: 6px;">
+                        <div class="progress-bar bg-warning"
+                             style="width: {{ metrics.f1 }}%">
+                        </div>
+                    </div>
+                    <p class="text-muted small mt-2">
+                        Overall balance between precision and recall
+                    </p>
+                </div>
+            </div>
+
+            <!-- False Positive Rate -->
+            <div class="col-md-3">
+                <div class="stat-card p-4 text-center">
+                    <p class="text-muted mb-1">False Positive Rate</p>
+                    <h2 class="text-white fw-bold">{{ metrics.fpr }}%</h2>
+                    <div class="progress mt-2" style="height: 6px;">
+                        <div class="progress-bar bg-danger"
+                             style="width: {{ metrics.fpr }}%">
+                        </div>
+                    </div>
+                    <p class="text-muted small mt-2">
+                        Only {{ metrics.fpr }}% of genuine transactions wrongly flagged
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================ -->
+        <!-- MIDDLE ROW — Confusion Matrix + Feature Chart -->
+        <!-- ============================================ -->
+        <div class="row g-4 mb-5">
+
+            <!-- LEFT — Confusion Matrix -->
+            <div class="col-md-5">
+                <div class="results-card p-4">
+                    <h5 class="text-white fw-bold mb-4">Confusion Matrix</h5>
+
+                    <table class="table text-center text-white">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class="text-muted">Predicted: Genuine</th>
+                                <th class="text-muted">Predicted: Fraud</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Row 1 — Actual Genuine -->
+                            <tr>
+                                <td class="text-muted">Actual: Genuine</td>
+
+                                <!-- True Negative — correctly identified genuine -->
+                                <td class="cm-green fw-bold">
+                                    {{ metrics.tn }}<br>
+                                    <small>True Negative ✅</small>
+                                </td>
+
+                                <!-- False Positive — genuine wrongly flagged as fraud -->
+                                <td class="cm-red fw-bold">
+                                    {{ metrics.fp }}<br>
+                                    <small>False Positive ❌</small>
+                                </td>
+                            </tr>
+
+                            <!-- Row 2 — Actual Fraud -->
+                            <tr>
+                                <td class="text-muted">Actual: Fraud</td>
+
+                                <!-- False Negative — fraud missed -->
+                                <td class="cm-red fw-bold">
+                                    {{ metrics.fn }}<br>
+                                    <small>False Negative ❌</small>
+                                </td>
+
+                                <!-- True Positive — correctly caught fraud -->
+                                <td class="cm-green fw-bold">
+                                    {{ metrics.tp }}<br>
+                                    <small>True Positive ✅</small>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <!-- RIGHT — Feature Importance Chart -->
+            <div class="col-md-7">
+                <div class="results-card p-4">
+                    <h5 class="text-white fw-bold mb-4">Top 10 Important Features</h5>
+                    <canvas id="featureChart" height="220"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================ -->
+        <!-- BOTTOM — Plain English Summary -->
+        <!-- ============================================ -->
+        <div class="summary-box p-4">
+            <h5 class="text-white fw-bold mb-3">
+                <i class="bi bi-lightbulb me-2"></i>
+                What This Means in Plain English
+            </h5>
+            <p class="text-muted mb-2">
+                ✅ This model correctly catches <strong class="text-success">{{ metrics.recall }}%</strong>
+                of actual fraud cases (Recall). So out of every 100 fraud transactions,
+                it catches approximately 83 of them.
+            </p>
+            <p class="text-muted mb-2">
+                ✅ When it raises a fraud alert, it is correct
+                <strong class="text-primary">{{ metrics.precision }}%</strong>
+                of the time (Precision). This keeps false alarms low.
+            </p>
+            <p class="text-muted mb-2">
+                ✅ Only <strong class="text-warning">{{ metrics.fpr }}%</strong>
+                of genuine transactions are wrongly flagged (False Positive Rate).
+                In this test set of 56,864 genuine transactions, only
+                <strong>{{ metrics.fp }}</strong> were incorrectly flagged.
+            </p>
+            <p class="text-muted mb-0">
+                ✅ In a real merchant scenario, this means the system can reliably
+                protect against fraud while keeping the customer experience smooth
+                for legitimate buyers.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- ================================================== -->
+    <!-- FOOTER -->
+    <!-- ================================================== -->
+    <footer class="text-center py-4 text-muted small">
+        FraudGuard &nbsp;·&nbsp; Razorpay AI Buildathon 2026 &nbsp;·&nbsp; Track 02
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ================================================== -->
+    <!-- Feature Importance Chart Data -->
+    <!-- ================================================== -->
+    <script>
+        // Top 10 features from Random Forest
+        // These are the PCA components most important for fraud detection
+        const labels = ["V14", "V4", "V12", "V10", "V11", "V17", "V3", "V7", "Amount", "V16"];
+        const values = [0.18, 0.12, 0.11, 0.10, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04];
+
+        const ctx = document.getElementById("featureChart").getContext("2d");
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Feature Importance",
+                    data: values,
+                    backgroundColor: "#2563eb",   // blue bars
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                indexAxis: "y",                   // horizontal bars
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: "#9ca3af" },
+                        grid:  { color: "#1f2937" }
+                    },
+                    y: {
+                        ticks: { color: "#9ca3af" },
+                        grid:  { color: "#1f2937" }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

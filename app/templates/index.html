@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for browser -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraudGuard — AI Risk Scorer</title>
+
+    <!-- Bootstrap 5 CSS from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Our custom CSS -->
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ================================================== -->
+    <!-- NAVBAR -->
+    <!-- ================================================== -->
+    <nav class="navbar navbar-dark px-4 py-3">
+        <a class="navbar-brand fw-bold fs-4" href="/">
+            🛡️ FraudGuard
+        </a>
+        <div class="d-flex gap-3">
+            <a href="/"        class="nav-link text-white">Home</a>
+            <a href="/results" class="nav-link text-white">Results</a>
+            <a href="/metrics" class="nav-link text-white">Metrics</a>
+        </div>
+    </nav>
+
+    <!-- ================================================== -->
+    <!-- HERO SECTION -->
+    <!-- ================================================== -->
+    <div class="hero-section text-center py-5">
+        <div class="container">
+
+            <!-- Main headline -->
+            <h1 class="display-4 fw-bold text-white mb-3">
+                Stop Fraud Before It Costs You
+            </h1>
+
+            <!-- Subheadline -->
+            <p class="lead text-muted mb-5">
+                Upload your transaction data. Get AI-powered risk scores instantly.
+            </p>
+
+            <!-- ============================================ -->
+            <!-- FEATURE CARDS ROW -->
+            <!-- ============================================ -->
+            <div class="row justify-content-center mb-5 g-4">
+
+                <!-- Feature 1 -->
+                <div class="col-md-3">
+                    <div class="feature-card p-4 text-center">
+                        <div class="feature-icon mb-3">🛡️</div>
+                        <h5 class="text-white fw-bold">Real-Time Scoring</h5>
+                        <p class="text-muted small">Every transaction scored instantly with ML</p>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="col-md-3">
+                    <div class="feature-card p-4 text-center">
+                        <div class="feature-icon mb-3">📊</div>
+                        <h5 class="text-white fw-bold">Honest Metrics</h5>
+                        <p class="text-muted small">Precision, Recall and False Positive Rate shown clearly</p>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="col-md-3">
+                    <div class="feature-card p-4 text-center">
+                        <div class="feature-icon mb-3">🔔</div>
+                        <h5 class="text-white fw-bold">Risk Alerts</h5>
+                        <p class="text-muted small">High, Medium and Low risk labels on every row</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ============================================ -->
+            <!-- UPLOAD CARD -->
+            <!-- ============================================ -->
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="upload-card p-5">
+
+                        <h4 class="text-white fw-bold mb-4">
+                            <i class="bi bi-cloud-upload me-2"></i>
+                            Upload Transaction CSV
+                        </h4>
+
+                        <!-- Upload form -->
+                        <form action="/upload" method="POST" enctype="multipart/form-data">
+
+                            <!-- File input dropzone -->
+                            <div class="dropzone mb-4 p-4">
+                                <input
+                                    type="file"
+                                    name="file"
+                                    accept=".csv"
+                                    class="form-control bg-transparent border-0 text-white"
+                                    required
+                                >
+                                <p class="text-muted small mt-2 mb-0">
+                                    Drag & drop or click to select a CSV file
+                                </p>
+                            </div>
+
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold">
+                                <i class="bi bi-cpu me-2"></i>
+                                Analyze Transactions
+                            </button>
+
+                        </form>
+
+                        <!-- Small note -->
+                        <p class="text-muted small mt-3 mb-0">
+                            Accepts .csv files only &nbsp;·&nbsp; No data stored permanently
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- FOOTER -->
+    <!-- ================================================== -->
+    <footer class="text-center py-4 text-muted small">
+        FraudGuard &nbsp;·&nbsp; Razorpay AI Buildathon 2026 &nbsp;·&nbsp; Track 02
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
